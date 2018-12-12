@@ -1,0 +1,41 @@
+#bookList {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+#bookList li {
+    float: left;
+    border: 2px solid black;
+    margin: 10px;
+    text-align: center;
+    display: none;
+}
+#bookList li:nth-child(1){
+    display: inline;
+    margin-top: 50px;
+    width: 150px;
+    height: 150px;
+}
+#bookList li:nth-child(2){
+    display: inline;
+    margin-top: 30px;
+    width: 150px;
+    height: 175px;
+}
+#bookList li:nth-child(3){
+    display: inline;
+    height: 250px;
+    width: 150px;
+}
+#bookList li:nth-child(4){
+    display: inline;
+    margin-top: 30px;
+    width: 150px;
+    height: 175px;
+}
+#bookList li:nth-child(5){
+    display: inline;
+    margin-top: 50px;
+    width: 150px;
+    height: 150px;
+}

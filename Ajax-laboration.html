@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="sv" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Ajax laboration Eva Fireborn</title>
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous">
+    </script>
+      <link rel="stylesheet" type="text/css" href="Ajax-laboration.css" />
+      <script type="text/javascript" src="Ajax-laboration.js"></script>
+</head>
+<body>
+    <div>
+        <button id="requestKey">Begär nyckel</button>
+        <span id="requestKeySpan"></span>
+    </div>
+    <div>
+        <input type="text" id="bookTitle" value="" placeholder="Titel">
+        <input type="text" id="bookAuthor" value="" placeholder="Författare">
+        <button id="newBook">Lägg till boken</button>
+        <span id="bookSuccessId"></span>
+    </div>
+    <div>
+        <button id="getList">Hämta boklistan</button>
+        <img src="images/icons8-sort-left-64.png" id="leftArrow" alt="left arrow">
+          <ul id="bookList">
+
+          </ul>
+        <img src="images/icons8-sort-right-64.png" id="rightArrow" alt="right arrow">
+    </div>
+    <div>
+        <p>För att ta bort en bok skriv in bokens ID nedan.</p>
+        <input type="text" id="removeBook" value="" placeholder="Bokens ID">
+        <button id="removeBookButton">Ta bort bok</button>
+        <span id="removeBookSpan"></span>
+    </div>
+    <div>
+        <p>För att korrigera en bok i listan, skriv in bokens ID nedan med ny titel och författare.</p>
+        <input type="text" id="changeBookId" value="" placeholder="ID">
+        <input type="text" id="changeBookTitle" value="" placeholder="Ny titel">
+        <input type="text" id="changeBookAuthor" value="" placeholder="Ny författare">
+        <button id="changeBookButton">Korrigera bok</button>
+    </div>
+</body>
+</html>
