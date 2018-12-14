@@ -1,5 +1,64 @@
+/*Mobilversion*/
 body {
     background-color: #2d3b50;
+}
+.container {
+    grid-template-rows: 100px 280px auto auto 1fr;
+    display: grid;
+    grid-row-gap: 5px;
+}
+/*CSS för header*/
+.booketlistHeader h1 {
+    font-family: 'Montserrat Subrayada', sans-serif;
+    color: #f7e4d9;
+    position: relative;
+    margin-top: -250px;
+    margin-left: 5px;
+}
+.booketlistHeader {
+    grid-row: 1/1;
+    overflow: hidden;
+    z-index: 1;
+}
+.booketlistHeader picture {
+    display: block;
+    object-fit: contain;
+    position: relative;
+    margin-top: -120px;
+    z-index: 0;
+}
+/*Login och general CSS*/
+p {
+    font-family: 'Lato', sans-serif;
+    color: #f7e4d9;
+    font-size: 5vw;
+    margin: 5px;
+}
+button {
+    font-size: 5vw;
+    background-color: #f7e4d9;
+}
+input {
+    font-size: 5vw;
+    background-color: #f7e4d9;
+}
+.login {
+    background-color: #2d3b50;
+    grid-row: 2/5;
+    z-index: 2;
+}
+#OK {
+    display: none;
+}
+/*Stil för Library div*/
+.id {
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+}
+.author {
+    position: absolute;
+    bottom: 30px;
 }
 #bookList {
     list-style-type: none;
@@ -15,86 +74,34 @@ body {
     font-family: 'Lato', sans-serif;
     color: white;
     background-color:  #2d3b50;
+    position: relative;
+    overflow: hidden;
 }
 #bookList li:nth-child(1){
     display: inline;
+    margin: 5px;
     margin-top: 30px;
-    width: 80px;
-    height: 130px;
+    width: 90px;
+    height: 180px;
 }
 #bookList li:nth-child(2){
     display: inline;
+    margin: 5px;
     margin-top: 10px;
-    width: 110px;
-    height: 150px;
+    width: 130px;
+    height: 200px;
 }
 #bookList li:nth-child(3){
     display: inline;
+    margin: 5px;
     margin-top: 30px;
-    height: 130px;
-    width: 80px;
+    height: 180px;
+    width: 90px;
 }
 .library button {
     margin-left: 25%;
-    margin-top: 10px;
+    margin-top: 20px;
     background-color: #f7e4d9;
-}
-button {
-    background-color: #f7e4d9;
-}
-#leftArrow {
-    margin-left: 28%;
-}
-p {
-    font-family: 'Lato', sans-serif;
-    color: #f7e4d9;
-    font-size: 6vw;
-    margin: 5px;
-}
-button {
-    font-size: 6vw;
-}
-input {
-    font-size: 6vw;
-    background-color: #f7e4d9;
-}
-.booketlistHeader h1 {
-    font-family: 'Special Elite', cursive;
-    color: #f7e4d9;
-    z-index: 10;
-    position: relative;
-    margin-top: -220px;
-    margin-left: 10px;
-}
-.booketlistHeader h2 {
-    font-family: 'Montserrat Subrayada', sans-serif;
-    color: #f7e4d9;
-    z-index: 10;
-    position: relative;
-    margin-top: -20px;
-    margin-left: 40px;
-}
-.booketlistHeader {
-    grid-row: 1/1;
-    overflow: hidden;
-    z-index: 1;
-}
-.booketlistHeader picture {
-    display: block;
-    object-fit: contain;
-    position: relative;
-    margin-top: -120px;
-    z-index: 0;
-}
-.login {
-    background-color: #2d3b50;
-    grid-row: 2/6;
-    z-index: 2;
-}
-.container {
-    grid-template-rows: 200px 280px 170px 170px 1fr;
-    grid-row-gap: 10px;
-    display: grid;
 }
 .library {
     background-color: #b07f61;
@@ -102,26 +109,75 @@ input {
     z-index: 1;
     display: none;
 }
-.addBook {
-    background-color: #452d46;
+/*Stil för arrow div*/
+.arrows {
+    display: none;
+    background-color:#2d3b50;
     grid-row: 3/3;
-    z-index: 1;
-    display: none;
 }
-.removeBook {
+#leftArrow {
+    height: 40px;
+    margin-left: 35%;
+    background-color: #f7e4d9;
+    border: 2px solid #452d46;
+}
+#rightArrow {
+    height: 40px;
+    background-color: #f7e4d9;
+    border: 2px solid #452d46;
+}
+/*Stil för inre menyn*/
+.innerMenu{
+    display: none;
     grid-row: 4/4;
+}
+.innerMenu p {
+    font-size: 5vw;
+    display: block;
+}
+#addBookDisplay {
+    width: 30%;
+    margin: 0px;
+    margin-top: 10px;
+    float: left;
+    background-color: #223034;
+}
+#removeBookDisplay {
+    width: 30%;
+    margin: 0px;
+    margin-top: 10px;
+    float: left;
+    background-color: #452d46;
+}
+#changeBookDisplay {
+    width: 35%;
+    margin: 0px;
+    margin-top: 10px;
+    float: left;
+    background-color: #262327;
+}
+/*Stil för lägga till bok*/
+.addBook {
+    background-color: #223034;
+    grid-row: 5/5;
     z-index: 1;
     display: none;
 }
+/*Stil för ta bort bok*/
+.removeBook {
+    background-color: #452d46;
+    grid-row: 5/5;
+    z-index: 1;
+    display: none;
+}
+/*Stil för ändra bok*/
 .changeBook {
     background-color: #262327;
     grid-row: 5/5;
     z-index: 1;
     display: none;
 }
-#OK {
-    display: none;
-}
+/*Query för surfplatta*/
 @media (min-width: 600px){
 
 }

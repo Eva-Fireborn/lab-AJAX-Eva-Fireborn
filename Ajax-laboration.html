@@ -25,14 +25,13 @@
             <img src="images/pexels-photo-large.jpg" alt="Row of books">        
         </picture>
         <h1>booketlist</h1>
-        <h2>-Missa aldrig ett bra boktips</h2>
     </div>
     <div class="login">
         <button id="OK">Jag har skrivit ner koden</button>
         <p class="goAway"> Om du inte har loggat in på Booketlist innan så tryck på knappen nedan och få en nyckel.</p>
         <button id="requestKey" class="goAway">Begär nyckel</button>
         <p class="goAway">Om du redan har ett bibliotek, fyll i din nyckel nedan och tryck på logga in.</p>
-        <input type="text" id="loginKey" class="goAway" value="" placeholder="Inloggningsnyckel">
+        <input type="password" id="loginKey" class="goAway" value="" placeholder="Inloggningsnyckel">
         <button id="loginKeyButton" class="goAway">Logga in</button>
     </div>
     <div class="addBook">
@@ -43,12 +42,18 @@
     </div>
     <div class="library">
         <button id="getList">Hämta boklistan</button>
-
           <ul id="bookList">
 
           </ul>
-          <img src="images/icons8-sort-left-64.png" id="leftArrow" alt="left arrow">
-          <img src="images/icons8-sort-right-64.png" id="rightArrow" alt="right arrow">
+    </div>
+    <div class="arrows">
+        <img src="images/icons8-sort-left-64.png" id="leftArrow" alt="left arrow">
+        <img src="images/icons8-sort-right-64.png" id="rightArrow" alt="right arrow">
+    </div>
+    <div class="innerMenu">
+        <div id="addBookDisplay"><p>Lägg till bok</p></div>
+        <div id="removeBookDisplay"><p>Ta bort bok</p></div>
+        <div id="changeBookDisplay"><p>Korrigera bok</p></div>
     </div>
     <div class="removeBook">
         <p>För att ta bort en bok skriv in bokens ID nedan.</p>

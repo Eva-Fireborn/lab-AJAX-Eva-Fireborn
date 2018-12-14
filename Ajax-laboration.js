@@ -1,7 +1,7 @@
 $(document).ready(function() {
     const url = 'https://www.forverkliga.se/JavaScript/api/crud.php';
     let accessKey='EGC0p';
-
+/*Inloggning */
     $('#requestKey').on('click', event => {
         const settings = {
             method: 'GET',
@@ -18,7 +18,7 @@ $(document).ready(function() {
         console.log(data);
         let object = JSON.parse(data);
         console.log(object);
-        $('.goAway').css('display', 'none')
+        $('.goAway').css('display', 'none');
         $('.login').prepend(`<p>Din inloggningsnyckel är ${object.key}, skriv ner din nyckel så du kan logga in nästa gång</p>`);
         $('#OK').css('display', 'block');
         accessKey=object.key;  
@@ -44,15 +44,61 @@ $(document).ready(function() {
         $('.login').css('display', 'none');
         $('.library').css('display', 'block');
         $('.addBook').css('display', 'block');
-        $('.removeBook').css('display', 'block');
-        $('.changeBook').css('display', 'block');
+        $('.arrows').css('display', 'block');
+        $('.innerMenu').css('display', 'block');
         getLibrary();
     }
+    /*Hämta biblioteket */
+    $('#getList').on('click', getLibrary)
+
+    function getLibrary(){
+        const checkListSettings = {
+            method: 'GET',
+            data: {
+                op: 'select',
+                key: accessKey
+            }
+        }
+        $.ajax(url, checkListSettings)
+        .done(reloadLibrary)
+        .fail(whenFail)
+    }
+    function reloadLibrary(data){
+        console.log(data);
+        let object = JSON.parse(data);
+        $('#bookList').html('');
+        $.each(object.data, function(index, value) {
+        $('#bookList').append(`<li> <p class="title">${value.title}</p><p class="author">${value.author}</p><p class="id">id: ${value.id}</p></li>`);
+        });
+    }
+    $('#rightArrow').on('click', event => {
+        let firstElement=$('#bookList li').first().remove();
+        $('#bookList').append(firstElement);
+    });
+    $('#leftArrow').on('click', event => {
+        let lastElement=$('#bookList li').last().remove();
+        $('#bookList').prepend(lastElement);
+    });
+    /*Inre menyn */
+    $('#addBookDisplay').click(event =>{
+        $('.addBook').css('display', 'block')
+        $('.removeBook').css('display', 'none')
+        $('.changeBook').css('display', 'none')
+    });
+    $('#removeBookDisplay').click(event =>{
+        $('.addBook').css('display', 'none')
+        $('.removeBook').css('display', 'block')
+        $('.changeBook').css('display', 'none')
+    });
+    $('#changeBookDisplay').click(event =>{
+        $('.addBook').css('display', 'none')
+        $('.removeBook').css('display', 'none')
+        $('.changeBook').css('display', 'block')
+    });
+    /*Lägg till ny bok */
     $('#newBook').on('click', event => {
         let title=$('#bookTitle').val();
         let author=$('#bookAuthor').val();
-        
-        
         const newBookSettings = {
             method: 'GET',
             data: {
@@ -74,32 +120,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#getList').on('click', getLibrary)
-
-
-    function getLibrary(){
-        const checkListSettings = {
-            method: 'GET',
-            data: {
-                op: 'select',
-                key: accessKey
-            }
-        }
-        $.ajax(url, checkListSettings)
-        .done(reloadLibrary)
-        .fail(whenFail)
-    }
-    function reloadLibrary(data){
-        console.log(data);
-        let object = JSON.parse(data);
-        $('#bookList').html('');
-        $.each(object.data, function(index, value) {
-        $('#bookList').append(`<li>${value.title}<br>${value.author}<br>id: ${value.id}</li>`);
-        });
-    }
-
-
-
+/*Ta bort bok */
     $('#removeBookButton').on('click', event => {
         let bookId=$('#removeBook').val();
         const removeBookSettings={
@@ -120,7 +141,7 @@ $(document).ready(function() {
             $('#removeBookSpan').text(`Boken är borttagen ur listan.`)
         }
     });
-
+/*Korrigera bok */
     $('#changeBookButton').on('click', event => {
         let changeBookID=$('#changeBookId').val();
         let newTitle=$('#changeBookTitle').val();
@@ -142,16 +163,6 @@ $(document).ready(function() {
         })
         .always(getLibrary)
     })
-
-
-    $('#rightArrow').on('click', event => {
-        let firstElement=$('#bookList li').first().remove();
-        $('#bookList').append(firstElement);
-    });
-    $('#leftArrow').on('click', event => {
-        let lastElement=$('#bookList li').last().remove();
-        $('#bookList').prepend(lastElement);
-    });
 
 }); //When loaded
 
