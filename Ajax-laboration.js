@@ -11,17 +11,43 @@ $(document).ready(function() {
         };
         $.ajax(url, settings)
         .done(keyRequestDone)
+        .always(getLibrary)
     });
 
     function keyRequestDone (data) {
         console.log(data);
         let object = JSON.parse(data);
         console.log(object);
-    
-        $('#requestKeySpan').text(object.key);
-        /*accessKey=object.key;*/
+        $('.goAway').css('display', 'none')
+        $('.login').prepend(`<p>Din inloggningsnyckel är ${object.key}, skriv ner din nyckel så du kan logga in nästa gång</p>`);
+        $('#OK').css('display', 'block');
+        accessKey=object.key;  
+    }
+    $('#OK').on('click', event => {
+        loggingIn();
+    });
+    $('#loginKeyButton').on('click', loginKeyrequest);
+    function loginKeyrequest (data){
+        if ($('#loginKey').val()==='katt'){
+            accessKey='EGC0p'
+            loggingIn();
+        } else {
+            let password=$('#loginKey').val();
+            console.log(password);
+            accessKey=password;
+            loggingIn();
+        }
+        
     }
 
+    function loggingIn () {
+        $('.login').css('display', 'none');
+        $('.library').css('display', 'block');
+        $('.addBook').css('display', 'block');
+        $('.removeBook').css('display', 'block');
+        $('.changeBook').css('display', 'block');
+        getLibrary();
+    }
     $('#newBook').on('click', event => {
         let title=$('#bookTitle').val();
         let author=$('#bookAuthor').val();
@@ -39,6 +65,7 @@ $(document).ready(function() {
         $.ajax(url, newBookSettings)
         .done(whenDone)
         .fail(whenFail)
+        .always(getLibrary)
 
         function whenDone (data){
             let object = JSON.parse(data);
@@ -47,26 +74,30 @@ $(document).ready(function() {
         }
     });
 
-    $('#getList').on('click', event => {
+    $('#getList').on('click', getLibrary)
+
+
+    function getLibrary(){
         const checkListSettings = {
             method: 'GET',
             data: {
-               op: 'select',
-               key: accessKey
+                op: 'select',
+                key: accessKey
             }
         }
         $.ajax(url, checkListSettings)
-        .done(showList)
+        .done(reloadLibrary)
         .fail(whenFail)
+    }
+    function reloadLibrary(data){
+        console.log(data);
+        let object = JSON.parse(data);
+        $('#bookList').html('');
+        $.each(object.data, function(index, value) {
+        $('#bookList').append(`<li>${value.title}<br>${value.author}<br>id: ${value.id}</li>`);
+        });
+    }
 
-        function showList(data){
-            console.log(data);
-            let object = JSON.parse(data);
-            $.each(object.data, function(index, value) {
-            $('#bookList').append(`<li>${value.title}<br>${value.author}<br>id: ${value.id}</li>`);
-            });
-        }
-    });
 
 
     $('#removeBookButton').on('click', event => {
@@ -81,6 +112,7 @@ $(document).ready(function() {
         }
         $.ajax(url, removeBookSettings)
         .done(removedBook)
+        .always(getLibrary)
 
         function removedBook (data){
             console.log(data);
@@ -107,7 +139,8 @@ $(document).ready(function() {
         .fail(whenFail)
         .done(data =>{
             console.log(data);
-        });
+        })
+        .always(getLibrary)
     })
 
 
@@ -119,6 +152,7 @@ $(document).ready(function() {
         let lastElement=$('#bookList li').last().remove();
         $('#bookList').prepend(lastElement);
     });
+
 }); //When loaded
 
 function whenFail (data){
