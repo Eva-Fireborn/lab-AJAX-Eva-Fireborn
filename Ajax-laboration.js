@@ -1,6 +1,7 @@
 $(document).ready(function() {
     const url = 'https://www.forverkliga.se/JavaScript/api/crud.php';
     let accessKey='EGC0p';
+    let failCounter=0;
 /*Inloggning */
     $('#requestKey').on('click', event => {
         const settings = {
@@ -11,21 +12,28 @@ $(document).ready(function() {
         };
         $.ajax(url, settings)
         .done(keyRequestDone)
+        .fail(whenFail)
         .always(getLibrary)
     });
 
     function keyRequestDone (data) {
-        console.log(data);
         let object = JSON.parse(data);
-        console.log(object);
-        $('.goAway').css('display', 'none');
-        $('.login').prepend(`<p>Din inloggningsnyckel är ${object.key}, skriv ner din nyckel så du kan logga in nästa gång</p>`);
-        $('#OK').css('display', 'block');
-        accessKey=object.key;  
+        if (object.status==='error'){
+            $('#loginError').text('Något gick fel, tryck igen')
+            failCounter++;
+            $('#failCounter').text(`Antal försök: ${failCounter}`);
+            $('#failMessage').append(`<li>${object.message}</li>`);
+        } else {
+            $('.goAway').css('display', 'none');
+            $('.login').prepend(`<p>Din inloggningsnyckel är ${object.key}, skriv ner din nyckel så du kan logga in nästa gång</p>`);
+            $('#OK').css('display', 'block');
+            accessKey=object.key; 
+        } 
     }
     $('#OK').on('click', event => {
         loggingIn();
     });
+    /*Inloggning med lösenord */
     $('#loginKeyButton').on('click', loginKeyrequest);
     function loginKeyrequest (data){
         if ($('#loginKey').val()==='katt'){
@@ -33,11 +41,9 @@ $(document).ready(function() {
             loggingIn();
         } else {
             let password=$('#loginKey').val();
-            console.log(password);
             accessKey=password;
             loggingIn();
-        }
-        
+        } 
     }
 
     function loggingIn () {
@@ -51,7 +57,7 @@ $(document).ready(function() {
     /*Hämta biblioteket */
     $('#getList').on('click', getLibrary)
 
-    function getLibrary(){
+    function getLibrary () {
         const checkListSettings = {
             method: 'GET',
             data: {
@@ -63,13 +69,19 @@ $(document).ready(function() {
         .done(reloadLibrary)
         .fail(whenFail)
     }
-    function reloadLibrary(data){
-        console.log(data);
+    function reloadLibrary(data) {
         let object = JSON.parse(data);
-        $('#bookList').html('');
-        $.each(object.data, function(index, value) {
-        $('#bookList').append(`<li> <p class="title">${value.title}</p><p class="author">${value.author}</p><p class="id">id: ${value.id}</p></li>`);
+        if (object.status==='error'){
+            failCounter++;
+            $('#failCounter').text(`Antal försök: ${failCounter}`);
+            $('#failMessage').append(`<li>${object.message}</li>`);
+            getLibrary();
+        } else {
+            $('#bookList').html('');
+            $.each(object.data, function(index, value) {
+            $('#bookList').append(`<li> <p class="title">${value.title}</p><p class="author">${value.author}</p><p class="id">id: ${value.id}</p></li>`);
         });
+        }
     }
     $('#rightArrow').on('click', event => {
         let firstElement=$('#bookList li').first().remove();
@@ -81,22 +93,27 @@ $(document).ready(function() {
     });
     /*Inre menyn */
     $('#addBookDisplay').click(event =>{
-        $('.addBook').css('display', 'block')
-        $('.removeBook').css('display', 'none')
-        $('.changeBook').css('display', 'none')
+        $('.addBook').css('display', 'block');
+        $('.removeBook').css('display', 'none');
+        $('.changeBook').css('display', 'none');
+        $('#bookSuccessId').text('');
     });
     $('#removeBookDisplay').click(event =>{
-        $('.addBook').css('display', 'none')
-        $('.removeBook').css('display', 'block')
-        $('.changeBook').css('display', 'none')
+        $('.addBook').css('display', 'none');
+        $('.removeBook').css('display', 'block');
+        $('.changeBook').css('display', 'none');
+        $('#removeBookSpan').text('');
     });
     $('#changeBookDisplay').click(event =>{
-        $('.addBook').css('display', 'none')
-        $('.removeBook').css('display', 'none')
-        $('.changeBook').css('display', 'block')
+        $('.addBook').css('display', 'none');
+        $('.removeBook').css('display', 'none');
+        $('.changeBook').css('display', 'block');
+        $('#changeBookP').text('');
     });
     /*Lägg till ny bok */
-    $('#newBook').on('click', event => {
+    $('#newBook').on('click', fetchNewBook) 
+    
+    function fetchNewBook () {
         let title=$('#bookTitle').val();
         let author=$('#bookAuthor').val();
         const newBookSettings = {
@@ -111,17 +128,26 @@ $(document).ready(function() {
         $.ajax(url, newBookSettings)
         .done(whenDone)
         .fail(whenFail)
-        .always(getLibrary)
 
         function whenDone (data){
             let object = JSON.parse(data);
-            console.log(object);
-            $('#bookSuccessId').text(`Boken lades in i biblioteket med ID#${object.id}`);
+            if (object.status==='error'){
+                $('#bookSuccessId').text('');
+                failCounter++;
+                $('#failCounter').text(`Antal försök: ${failCounter}`);
+                $('#failMessage').append(`<li>${object.message}</li>`);
+                fetchNewBook();
+            } else {
+                $('#bookSuccessId').text(`Boken lades in i biblioteket med ID#${object.id}`);
+                getLibrary();
+            } 
         }
-    });
+    }
 
 /*Ta bort bok */
-    $('#removeBookButton').on('click', event => {
+    $('#removeBookButton').on('click', removeThatBook)
+
+    function removeThatBook () {
         let bookId=$('#removeBook').val();
         const removeBookSettings={
             method: 'GET',
@@ -133,16 +159,26 @@ $(document).ready(function() {
         }
         $.ajax(url, removeBookSettings)
         .done(removedBook)
-        .always(getLibrary)
-
-        function removedBook (data){
-            console.log(data);
-            let object = JSON.parse(data);
-            $('#removeBookSpan').text(`Boken är borttagen ur listan.`)
+        .fail(whenFail)
+    }
+    
+    function removedBook (data){
+        let object = JSON.parse(data);
+        if (object.status==='error'){
+            $('#removeBookSpan').text('');
+            failCounter++;
+            $('#failCounter').text(`Antal försök: ${failCounter}`);
+            $('#failMessage').append(`<li>${object.message}</li>`);
+            removeThatBook();
+        } else {
+            $('#removeBookSpan').text(`Boken är borttagen ur listan.`);
+            getLibrary();
         }
-    });
+    }
 /*Korrigera bok */
-    $('#changeBookButton').on('click', event => {
+    $('#changeBookButton').on('click', changeThatBook)
+
+    function changeThatBook () {
         let changeBookID=$('#changeBookId').val();
         let newTitle=$('#changeBookTitle').val();
         let newAuthor=$('#changeBookAuthor').val();
@@ -159,10 +195,19 @@ $(document).ready(function() {
         $.ajax(url, changeBookSettings)
         .fail(whenFail)
         .done(data =>{
-            console.log(data);
+            let object = JSON.parse(data);
+            if (object.status==='error'){
+                $('#changeBookP').text('');
+                failCounter++;
+                $('#failCounter').text(`Antal försök: ${failCounter}`);
+                $('#failMessage').append(`<li>${object.message}</li>`);
+                changeThatBook();
+            } else {
+                $('#changeBookP').text('Boken har korrigerats.');
+                getLibrary();
+            }
         })
-        .always(getLibrary)
-    })
+    }
 
 }); //When loaded
 

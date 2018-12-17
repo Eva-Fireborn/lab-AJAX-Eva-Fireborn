@@ -17,22 +17,25 @@
 </head>
 <body>
     <div class="container">
-    <div class="booketlistHeader">
         <picture>
-            <source srcset="images/pexels-photo-small.jpg" media="(max-width: 600px)">
-            <source srcset="images/pexels-photo-medium.jpg" media="(max-width: 1500px)">
-            <source srcset="images/pexels-photo-large.jpg">
-            <img src="images/pexels-photo-large.jpg" alt="Row of books">        
+            <source srcset="images/library-small.jpeg" media="(max-width: 600px)">
+            <source srcset="images/library-medium.jpeg" media="(max-width: 1500px)">
+            <source srcset="images/library-large.jpeg">
+            <img src="images/library-large.jpeg" alt="Background-image unavailable">
         </picture>
+    <div class="booketlistHeader">
         <h1>booketlist</h1>
     </div>
     <div class="login">
-        <button id="OK">Jag har skrivit ner koden</button>
-        <p class="goAway"> Om du inte har loggat in på Booketlist innan så tryck på knappen nedan och få en nyckel.</p>
-        <button id="requestKey" class="goAway">Begär nyckel</button>
         <p class="goAway">Om du redan har ett bibliotek, fyll i din nyckel nedan och tryck på logga in.</p>
         <input type="password" id="loginKey" class="goAway" value="" placeholder="Inloggningsnyckel">
         <button id="loginKeyButton" class="goAway">Logga in</button>
+        <p id="passwordError"></p>
+        <br>
+        <button id="OK">Jag har skrivit ner koden</button>
+        <p class="goAway"> Om du inte har loggat in på Booketlist innan så tryck på knappen nedan och få en nyckel.</p>
+        <button id="requestKey" class="goAway">Begär nyckel</button>
+        <p id="loginError" class="goAway"></p>
     </div>
     <div class="addBook">
         <input type="text" id="bookTitle" value="" placeholder="Titel">
@@ -45,6 +48,7 @@
           <ul id="bookList">
 
           </ul>
+          <p id="bookListFailId"></p>
     </div>
     <div class="arrows">
         <img src="images/icons8-sort-left-64.png" id="leftArrow" alt="left arrow">
@@ -67,6 +71,14 @@
         <input type="text" id="changeBookTitle" value="" placeholder="Ny titel">
         <input type="text" id="changeBookAuthor" value="" placeholder="Ny författare">
         <button id="changeBookButton">Korrigera bok</button>
+        <p id="changeBookP"></p>
+    </div>
+    <div class="failLog">
+        <p>Logg för felmeddelanden</p>
+        <p id="failCounter"></p>
+        <ol id="failMessage">
+
+        </ol>
     </div>
 </div>
 </body>
