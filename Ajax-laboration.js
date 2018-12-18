@@ -56,7 +56,6 @@ $(document).ready(function() {
         $('.login').css('display', 'none');
         $('.library').css('display', 'block');
         $('.addBook').css('display', 'block');
-        $('.arrows').css('display', 'block');
         $('.innerMenu').css('display', 'block');
         getLibrary();
     }
@@ -91,7 +90,7 @@ $(document).ready(function() {
             } else {
                 $('#bookList').html('');
                 $.each(object.data, function(index, value) {
-                    $('#bookList').append(`<li><p class="title">${value.title}</p><p class="author">${value.author}</p><button id="${value.id}" class="remove">Ta bort</button><button id="${value.id}" class="change">Korrigera bok</button></li>`);
+                    $('#bookList').append(`<li><p class="title">${value.title}</p><p class="author">${value.author}</p><button id="${value.id}" class="change">Ändra</button><button id="${value.id}" class="remove">Ta bort</button></li>`);
                 });
             }
         }
@@ -239,7 +238,20 @@ $(document).ready(function() {
             }
         }
     }
-
+    /*Fail log synlighet */
+    $('.failLog').on('click', event => {
+        if($('.failLog').css('height')==='180px'){
+            return;
+        } else {
+            if ($('.failLog').css('overflow')=== 'hidden'){
+                $('.failLog').css('overflow', 'scroll')
+                $('.failLog').css('height', '200px')
+            } else {
+                $('.failLog').css('overflow', 'hidden')
+                $('.failLog').css('height', '35px')
+            }
+        }
+    });
 }); //When loaded
 
 function whenFail (data){
