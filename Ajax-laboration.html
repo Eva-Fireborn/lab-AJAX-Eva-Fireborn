@@ -2,7 +2,7 @@
 <html lang="sv" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ajax laboration Eva Fireborn</title>
     <script
         src="https://code.jquery.com/jquery-3.3.1.js"
@@ -11,38 +11,62 @@
     </script>
       <link rel="stylesheet" type="text/css" href="Ajax-laboration.css" />
       <script type="text/javascript" src="Ajax-laboration.js"></script>
+      <link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Montserrat+Subrayada" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body>
-    <div>
-        <button id="requestKey">Begär nyckel</button>
-        <span id="requestKeySpan"></span>
+    <div class="container">
+        <picture>
+            <source srcset="images/library-small.jpeg" media="(max-width: 600px)">
+            <source srcset="images/library-medium.jpeg" media="(max-width: 1000px)">
+            <source srcset="images/library-large.jpg">
+            <img src="images/library-large.jpg" alt="Background-image unavailable">
+        </picture>
+    <div class="booketlistHeader">
+        <h1>booketlist</h1>
     </div>
-    <div>
+    <div class="login">
+        <p class="goAway">Om du redan har ett bibliotek, fyll i din nyckel nedan och tryck på logga in.</p>
+        <input type="password" id="loginKey" class="goAway" value="" placeholder="Inloggningsnyckel">
+        <button id="loginKeyButton" class="goAway">Logga in</button>
+        <p id="passwordError"></p>
+        <br>
+        <button id="OK">Jag har skrivit ner koden</button>
+        <p class="goAway"> Om du inte har loggat in på Booketlist innan så tryck på knappen nedan och få en nyckel.</p>
+        <button id="requestKey" class="goAway">Begär nyckel</button>
+        <p id="loginError" class="goAway"></p>
+    </div>
+    <div class="addBook">
+        <h2>Lägg till en ny bok</h2>
         <input type="text" id="bookTitle" value="" placeholder="Titel">
         <input type="text" id="bookAuthor" value="" placeholder="Författare">
         <button id="newBook">Lägg till boken</button>
-        <span id="bookSuccessId"></span>
     </div>
-    <div>
-        <button id="getList">Hämta boklistan</button>
-        <img src="images/icons8-sort-left-64.png" id="leftArrow" alt="left arrow">
+    <div class="library">
           <ul id="bookList">
 
           </ul>
-        <img src="images/icons8-sort-right-64.png" id="rightArrow" alt="right arrow">
+          <img src="images/icons8-sort-left-64.png" id="leftArrow" alt="left arrow">
+          <img src="images/icons8-sort-right-64.png" id="rightArrow" alt="right arrow">
+          <button id="getList">Hämta boklistan</button>
     </div>
-    <div>
-        <p>För att ta bort en bok skriv in bokens ID nedan.</p>
-        <input type="text" id="removeBook" value="" placeholder="Bokens ID">
-        <button id="removeBookButton">Ta bort bok</button>
-        <span id="removeBookSpan"></span>
+    <div class="innerMenu">
+        <div id="infoDisplay"><p></p></div>
     </div>
-    <div>
-        <p>För att korrigera en bok i listan, skriv in bokens ID nedan med ny titel och författare.</p>
-        <input type="text" id="changeBookId" value="" placeholder="ID">
-        <input type="text" id="changeBookTitle" value="" placeholder="Ny titel">
-        <input type="text" id="changeBookAuthor" value="" placeholder="Ny författare">
+    <div class="changeBook">
+        <input type="text" id="changeBookTitle" value="" placeholder="">
+        <input type="text" id="changeBookAuthor" value="" placeholder="">
         <button id="changeBookButton">Korrigera bok</button>
+        <button id="abortBookButton">Avbryt</button>
     </div>
+    <div class="failLog">
+        <p>Logg för felmeddelanden</p>
+        <p id="failCounter"></p>
+        <ol id="failMessage">
+
+        </ol>
+    </div>
+</div>
 </body>
 </html>
