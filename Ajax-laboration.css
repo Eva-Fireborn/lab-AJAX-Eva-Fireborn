@@ -20,7 +20,7 @@ body {
 /*CSS för header*/
 .booketlistHeader h1 {
     font-family: 'Montserrat Subrayada', sans-serif;
-    color: #D85369;
+    color: black;
     position: absolute;
     margin: 5px;
     right: 5px;
@@ -129,7 +129,7 @@ input {
     background-color: #f7e4d9;
     border: 2px solid #452d46;
 }
-/*Stil för inre menyn*/
+/*Stil för inre info display*/
 .innerMenu{
     z-index: 1;
     display: none;
@@ -153,6 +153,12 @@ input {
     display: none;
     height: 200px;
     opacity: 0.9;
+}
+.addBook h2 {
+    font-family: 'Lato', sans-serif;
+    color: black;
+    text-align: center;
+    margin-top: 5px;
 }
 /*Stil för ändra bok*/
 .changeBook {
