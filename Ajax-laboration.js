@@ -1,7 +1,8 @@
 $(document).ready(function() {
     const url = 'https://www.forverkliga.se/JavaScript/api/crud.php';
-    let accessKey='EGC0p';
+    let accessKey='';
     let failCounter=0;
+    let tempID='';
 /*Inloggning */
     $('#requestKey').on('click', event => {
         const settings = {
@@ -21,7 +22,7 @@ $(document).ready(function() {
         if (object.status==='error'){
             $('#loginError').text('Något gick fel, tryck igen')
             failCounter++;
-            $('#failCounter').text(`Antal försök: ${failCounter}`);
+            $('#failCounter').text(`Antal misslyckade försök: ${failCounter}`);
             $('#failMessage').append(`<li>${object.message}</li>`);
         } else {
             $('.goAway').css('display', 'none');
@@ -79,10 +80,26 @@ $(document).ready(function() {
         } else {
             $('#bookList').html('');
             $.each(object.data, function(index, value) {
-            $('#bookList').append(`<li> <p class="title">${value.title}</p><p class="author">${value.author}</p><p class="id">id: ${value.id}</p></li>`);
-        });
+                $('#bookList').append(`<li><p class="title">${value.title}</p><p class="author">${value.author}</p><button id="${value.id}" class="remove">Ta bort</button><button id="${value.id}" class="change">Korrigera bok</button></li>`);
+            });
         }
     }
+    /*Knappar för boklistan, Ta bort och korrigera */
+    $('#bookList').click(event => {
+        if (event.target.className==='remove'){
+            let ID = event.target.id;
+            removeThatBook(ID);
+        } else if (event.target.className==='change'){
+            let title=event.target.parentElement.firstChild.innerText;
+            let author=event.target.parentElement.children[1].innerText;
+            tempID = event.target.id;
+            $('.changeBook').css('display', 'block');
+            $('.library').css('display', 'none');
+            $('#changeBookTitle').val(title);
+            $('#changeBookAuthor').val(author);
+        }
+    });
+
     $('#rightArrow').on('click', event => {
         let firstElement=$('#bookList li').first().remove();
         $('#bookList').append(firstElement);
@@ -91,25 +108,7 @@ $(document).ready(function() {
         let lastElement=$('#bookList li').last().remove();
         $('#bookList').prepend(lastElement);
     });
-    /*Inre menyn */
-    $('#addBookDisplay').click(event =>{
-        $('.addBook').css('display', 'block');
-        $('.removeBook').css('display', 'none');
-        $('.changeBook').css('display', 'none');
-        $('#bookSuccessId').text('');
-    });
-    $('#removeBookDisplay').click(event =>{
-        $('.addBook').css('display', 'none');
-        $('.removeBook').css('display', 'block');
-        $('.changeBook').css('display', 'none');
-        $('#removeBookSpan').text('');
-    });
-    $('#changeBookDisplay').click(event =>{
-        $('.addBook').css('display', 'none');
-        $('.removeBook').css('display', 'none');
-        $('.changeBook').css('display', 'block');
-        $('#changeBookP').text('');
-    });
+
     /*Lägg till ny bok */
     $('#newBook').on('click', fetchNewBook) 
     
@@ -134,11 +133,11 @@ $(document).ready(function() {
             if (object.status==='error'){
                 $('#bookSuccessId').text('');
                 failCounter++;
-                $('#failCounter').text(`Antal försök: ${failCounter}`);
+                $('#failCounter').text(`Antal misslyckade försök: ${failCounter}`);
                 $('#failMessage').append(`<li>${object.message}</li>`);
                 fetchNewBook();
             } else {
-                $('#bookSuccessId').text(`Boken lades in i biblioteket med ID#${object.id}`);
+                $('#infoDisplay').text(`Boken lades in i biblioteket med ID#${object.id}`);
                 getLibrary();
             } 
         }
@@ -147,8 +146,8 @@ $(document).ready(function() {
 /*Ta bort bok */
     $('#removeBookButton').on('click', removeThatBook)
 
-    function removeThatBook () {
-        let bookId=$('#removeBook').val();
+    function removeThatBook (ID) {
+        let bookId=ID;
         const removeBookSettings={
             method: 'GET',
             data: {
@@ -160,28 +159,32 @@ $(document).ready(function() {
         $.ajax(url, removeBookSettings)
         .done(removedBook)
         .fail(whenFail)
-    }
+    
     
     function removedBook (data){
         let object = JSON.parse(data);
         if (object.status==='error'){
             $('#removeBookSpan').text('');
             failCounter++;
-            $('#failCounter').text(`Antal försök: ${failCounter}`);
+            $('#failCounter').text(`Antal misslyckade försök: ${failCounter}`);
             $('#failMessage').append(`<li>${object.message}</li>`);
-            removeThatBook();
         } else {
-            $('#removeBookSpan').text(`Boken är borttagen ur listan.`);
+            $('#infoDisplay').text(`Boken är borttagen ur listan.`);
             getLibrary();
         }
     }
+}
 /*Korrigera bok */
     $('#changeBookButton').on('click', changeThatBook)
+    $('#abortBookButton').on('click', event => {
+        $('.library').css('display', 'block');
+        $('.changeBook').css('display', 'none');
+    });
 
     function changeThatBook () {
-        let changeBookID=$('#changeBookId').val();
-        let newTitle=$('#changeBookTitle').val();
-        let newAuthor=$('#changeBookAuthor').val();
+        let changeBookID = tempID;
+        let newTitle = $('#changeBookTitle').val();
+        let newAuthor = $('#changeBookAuthor').val();
         const changeBookSettings = {
             method: 'GET',
             data: {
@@ -199,11 +202,12 @@ $(document).ready(function() {
             if (object.status==='error'){
                 $('#changeBookP').text('');
                 failCounter++;
-                $('#failCounter').text(`Antal försök: ${failCounter}`);
+                $('#failCounter').text(`Antal misslyckade försök: ${failCounter}`);
                 $('#failMessage').append(`<li>${object.message}</li>`);
-                changeThatBook();
             } else {
-                $('#changeBookP').text('Boken har korrigerats.');
+                $('#infoDisplay').text('Boken har korrigerats.');
+                $('.library').css('display', 'block');
+                $('.changeBook').css('display', 'none');
                 getLibrary();
             }
         })
@@ -214,5 +218,6 @@ $(document).ready(function() {
 function whenFail (data){
     let object = JSON.parse(data);
     console.log(`fel=${object.message}`);
+    $('#infoDisplay').text('Något gick snett, försök igen om en stund.')
 }
 

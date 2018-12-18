@@ -41,37 +41,25 @@
         <input type="text" id="bookTitle" value="" placeholder="Titel">
         <input type="text" id="bookAuthor" value="" placeholder="Författare">
         <button id="newBook">Lägg till boken</button>
-        <p id="bookSuccessId"></p>
     </div>
     <div class="library">
         <button id="getList">Hämta boklistan</button>
           <ul id="bookList">
 
           </ul>
-          <p id="bookListFailId"></p>
     </div>
     <div class="arrows">
         <img src="images/icons8-sort-left-64.png" id="leftArrow" alt="left arrow">
         <img src="images/icons8-sort-right-64.png" id="rightArrow" alt="right arrow">
     </div>
     <div class="innerMenu">
-        <div id="addBookDisplay"><p>Lägg till bok</p></div>
-        <div id="removeBookDisplay"><p>Ta bort bok</p></div>
-        <div id="changeBookDisplay"><p>Korrigera bok</p></div>
-    </div>
-    <div class="removeBook">
-        <p>För att ta bort en bok skriv in bokens ID nedan.</p>
-        <input type="text" id="removeBook" value="" placeholder="Bokens ID">
-        <button id="removeBookButton">Ta bort bok</button>
-        <p id="removeBookSpan"></p>
+        <div id="infoDisplay"><p></p></div>
     </div>
     <div class="changeBook">
-        <p>För att korrigera en bok i listan, skriv in bokens ID nedan med ny titel och författare.</p>
-        <input type="text" id="changeBookId" value="" placeholder="ID">
-        <input type="text" id="changeBookTitle" value="" placeholder="Ny titel">
-        <input type="text" id="changeBookAuthor" value="" placeholder="Ny författare">
+        <input type="text" id="changeBookTitle" value="" placeholder="">
+        <input type="text" id="changeBookAuthor" value="" placeholder="">
         <button id="changeBookButton">Korrigera bok</button>
-        <p id="changeBookP"></p>
+        <button id="abortBookButton">Avbryt</button>
     </div>
     <div class="failLog">
         <p>Logg för felmeddelanden</p>

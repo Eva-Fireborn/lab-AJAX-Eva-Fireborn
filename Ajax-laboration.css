@@ -39,9 +39,11 @@ p {
 }
 button {
     font-size: 4vw;
+    background-color: #f7e4d9;
 }
 input {
     font-size: 5vw;
+    background-color: #f7e4d9;
 }
 .login {
     background-color: #724223;
@@ -53,10 +55,11 @@ input {
     display: none;
 }
 /*Stil för Library div*/
-.id {
+.remove {
     position: absolute;
     bottom: 0px;
-    text-align: center;
+    right: 10%;
+    width: 80%;
 }
 .author {
     position: absolute;
@@ -102,10 +105,6 @@ input {
     height: 180px;
     width: 90px;
 }
-.library button {
-    margin-left: 25%;
-    margin-top: 20px;
-}
 .library {
     background-color: #724223;
     grid-row: 2/2;
@@ -136,30 +135,15 @@ input {
     display: none;
     grid-row: 4/4;
 }
-.innerMenu p {
+#infoDisplay {
+    width: 100%;
+    margin-top: 5px;
+    height: 2em;
+    background-color: #f7e4d9;
+    opacity: 0.9;
     font-size: 5vw;
-    display: block;
-}
-#addBookDisplay {
-    width: 30%;
-    margin: 0px;
-    margin-top: 10px;
-    float: left;
-    background-color: #5C0E15;
-}
-#removeBookDisplay {
-    width: 30%;
-    margin: 0px;
-    margin-top: 10px;
-    float: left;
-    background-color: #724223;
-}
-#changeBookDisplay {
-    width: 35%;
-    margin: 0px;
-    margin-top: 10px;
-    float: left;
-    background-color: #452d46;
+    font-family: 'Lato', sans-serif;
+    opacity: 1;
 }
 /*Stil för lägga till bok*/
 .addBook {
@@ -170,23 +154,26 @@ input {
     height: 200px;
     opacity: 0.9;
 }
-/*Stil för ta bort bok*/
-.removeBook {
-    background-color: #724223;
-    grid-row: 5/5;
-    z-index: 1;
-    display: none;
-    height: 200px;
-    opacity: 0.9;
-}
 /*Stil för ändra bok*/
 .changeBook {
-    background-color: #452d46;
-    grid-row: 5/5;
+    background-color: #2d3b50;
+    grid-row: 2/2;
     z-index: 1;
     display: none;
-    height: 200px;
     opacity: 0.9;
+    border: 4px solid black;
+}
+#changeBookTitle {
+    margin-top: 40px;
+    margin-left: 30px;
+}
+#changeBookAuthor {
+    margin-top: 5px;
+    margin-left: 30px;
+}
+#changeBookButton {
+   margin: 30px;
+
 }
 /*Stil för fail loggen*/
 .failLog {
