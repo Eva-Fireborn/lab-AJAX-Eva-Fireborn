@@ -31,7 +31,7 @@ $(document).ready(function() {
                 sendRequestLogIn(numberOfTries-1);
             } else {
                 $('.goAway').css('display', 'none');
-                $('.login').prepend(`<p>Din inloggningsnyckel är ${object.key}, skriv ner din nyckel så du kan logga in nästa gång</p>`);
+                $('.login').prepend(`<p class="oldKey">Din inloggningsnyckel är ${object.key}, skriv ner din nyckel så du kan logga in nästa gång</p>`);
                 $('#OK').css('display', 'block');
                 accessKey=object.key; 
             } 
@@ -39,6 +39,9 @@ $(document).ready(function() {
     });
     $('#OK').on('click', event => {
         loggingIn();
+        $('.oldKey').css('display', 'none');
+        $('.goAway').css('display', 'inline');
+        $('#OK').css('display', 'none');
     });
     /*Inloggning med lösenord */
     $('#loginKeyButton').on('click', loginKeyrequest);
@@ -57,6 +60,7 @@ $(document).ready(function() {
         $('.library').css('display', 'block');
         $('.addBook').css('display', 'block');
         $('.innerMenu').css('display', 'block');
+        $('#logOut').css('display', 'inline');
         getLibrary();
     }
     /*Hämta biblioteket */
@@ -251,6 +255,14 @@ $(document).ready(function() {
                 $('.failLog').css('height', '35px')
             }
         }
+    });
+    $('#logOut').click(event => {
+        $('.login').css('display', 'block');
+        $('.library').css('display', 'none');
+        $('.addBook').css('display', 'none');
+        $('.innerMenu').css('display', 'none');
+        $('#logOut').css('display', 'none');
+        $('#loginKey').val('');
     });
 }); //When loaded
 
