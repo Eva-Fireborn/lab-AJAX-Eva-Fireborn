@@ -22,12 +22,17 @@ body {
     font-family: 'Montserrat Subrayada', sans-serif;
     color: black;
     position: absolute;
-    margin: 5px;
+    margin: 0px;
+    top: 0px;
     right: 5px;
 }
 .booketlistHeader {
     grid-row: 1/1;
     z-index: 1;
+}
+#logOut {
+    margin: 0px;
+    display: none;
 }
 /*Login och general CSS*/
 p {
@@ -50,7 +55,7 @@ input {
 }
 .login {
     background-color: #724223;
-    grid-row: 3/4;
+    grid-row: 2/4;
     z-index: 2;
     opacity: 0.9;
 }
@@ -82,6 +87,8 @@ input {
     list-style-type: none;
     margin: 0px;
     padding: 0px;
+    overflow: hidden;
+    height: 250px;
 }
 #bookList li {
     float: left;
@@ -104,6 +111,9 @@ input {
     width: 95px;
     height: 210px;
 }
+#bookList li:nth-child(1) > p {
+    font-size: 4vw;
+}
 #bookList li:nth-child(2){
     display: inline;
     margin: 5px;
@@ -119,6 +129,9 @@ input {
     margin-left: 0px;
     height: 210px;
     width: 95px;
+}
+#bookList li:nth-child(3) > p {
+    font-size: 4vw;
 }
 .library {
     background-color: #452d46;
@@ -156,11 +169,12 @@ input {
     grid-row: 3/3;
     background-color: #724223;
     opacity: 0.9;
+    overflow: hidden;
 }
 #infoDisplay {
     width: 100%;
     margin-top: 5px;
-    height: 2em;
+    height: 3em;
     opacity: 0.9;
     font-size: 5vw;
     font-family: 'Lato', sans-serif;
@@ -252,6 +266,9 @@ input {
         width: 95px;
         height: 200px;
     }
+    #bookList li:nth-child(1) > p {
+        font-size: 2vw;
+    }
     #bookList li:nth-child(2){
         display: inline;
         margin: 5px;
@@ -259,6 +276,9 @@ input {
         margin-top: 30px;
         width: 115px;
         height: 220px;
+    }
+    #bookList li:nth-child(2) > p {
+        font-size: 2.5vw;
     }
     #bookList li:nth-child(3){
         display: inline;
@@ -276,6 +296,9 @@ input {
         height: 220px;
         width: 115px;
     }
+    #bookList li:nth-child(4) > p {
+        font-size: 2.5vw;
+    }
     #bookList li:nth-child(5){
         display: inline;
         margin: 5px;
@@ -283,6 +306,9 @@ input {
         margin-left: 0px;
         height: 200px;
         width: 95px;
+    }
+    #bookList li:nth-child(5) > p {
+        font-size: 2vw;
     }
     .author {
         bottom: 60px;
@@ -347,6 +373,10 @@ input {
         font-size: 2vw;
         background-color: #f7e4d9;
     }
+    #logOut {
+        font-size: 2vw;
+        background-color: #f7e4d9;
+    }
     .login {
         margin-right: 20px;
         margin-left: 20px;
@@ -381,6 +411,9 @@ input {
     .title {
         font-size: 2vw;
     }
+    #bookList{
+        height: 320px;
+    }
     #bookList li:nth-child(1){
         display: inline;
         margin: 5px;
@@ -388,6 +421,9 @@ input {
         margin-left: 5%;
         height: 220px;
         width: 100px;
+    }
+    #bookList li:nth-child(1) > p {
+        font-size: 1.2vw;
     }
     #bookList li:nth-child(2){
         display: inline;
@@ -397,6 +433,9 @@ input {
         height: 240px;
         width: 110px;
     }
+    #bookList li:nth-child(2) > p {
+        font-size: 1.5vw;
+    }
     #bookList li:nth-child(3){
         display: inline;
         margin: 5px;
@@ -405,6 +444,9 @@ input {
         height: 260px;
         width: 130px;
     }
+    #bookList li:nth-child(3) > p {
+        font-size: 1.7vw; 
+    }
     #bookList li:nth-child(4){
         display: inline;
         margin: 5px;
@@ -412,6 +454,9 @@ input {
         margin-left: 0px;
         height: 280px;
         width: 150px;
+    }
+    #bookList li:nth-child(4) > p{
+        font-size: 1.7vw;
     }
     #bookList li:nth-child(5){
         display: inline;
@@ -429,6 +474,9 @@ input {
         height: 280px;
         width: 150px;
     }
+    #bookList li:nth-child(6) > p{
+        font-size: 1.7vw;
+    }
     #bookList li:nth-child(7){
         display: inline;
         margin: 5px;
@@ -436,6 +484,9 @@ input {
         margin-left: 0px;
         height: 260px;
         width: 130px;
+    }
+    #bookList li:nth-child(7) > p {
+        font-size: 1.7vw;
     }
     #bookList li:nth-child(8){
         display: inline;
@@ -445,6 +496,9 @@ input {
         height: 240px;
         width: 110px;
     }
+    #bookList li:nth-child(8) > p {
+        font-size: 1.5vw;
+    }
     #bookList li:nth-child(9){
         display: inline;
         margin: 5px;
@@ -452,6 +506,9 @@ input {
         margin-left: 0px;
         height: 220px;
         width: 100px;
+    }
+    #bookList li:nth-child(9) > p {
+        font-size: 1.2vw;
     }
     .library {
         margin-top: 0px;
@@ -538,6 +595,9 @@ input {
         margin-left: 20px;
         margin-right: 20px;
         overflow: hidden;
+    }
+    .failLog p {
+        font-size: 1.5vw;
     }
     .failLog:hover {
         height: 400px;
