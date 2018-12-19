@@ -79,6 +79,7 @@ input {
     position: absolute;
     bottom: 50px;
     font-size: 4.5vw;
+    color: #bda25f;
 }
 .title {
     color: #eaca79;
@@ -364,6 +365,7 @@ input {
     }
     #infoDisplay {
         font-size: 2vw;
+        height: 180px;
     }
     button {
         font-size: 2vw;
@@ -529,6 +531,7 @@ input {
     #getList {
         right: 20px;
     }
+    .innermen
     /*info display div*/
     #infoDisplay {
         width: 100%;
